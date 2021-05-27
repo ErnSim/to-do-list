@@ -83,8 +83,6 @@ input[type=text]{
 header{
 	padding: 1.5rem;
 	border-radius: 1rem 1rem 0 0;
-
-	/*background-color: rgb(85, 85, 85);*/
 	background: rgb(158,238,255);
 	background: linear-gradient(45deg, rgba(158,238,255,1) 0%, rgba(240,255,113,1) 74%, rgba(255,138,226,1) 100%); 
 }
@@ -115,7 +113,6 @@ input[type=checkbox]{
 	background-color: none;
 	width: 1.3rem;
 	height: 1.3rem;
-	/*padding: 0.6rem;*/
 	border: 0.15rem solid rgba(0, 0, 0, 0.1);
 	border-radius: 0.2rem;
 	background-color: white;
@@ -133,7 +130,7 @@ input[type=checkbox]:after{
 	content: '\f00c';
 	color: rgba(0, 0, 0, 0.9);
 	font-size: 0;
-	transition: 0.1s;
+	transition: 0.2s cubic-bezier(.44,.02,.8,1.82);
 }
 
 input[type=checkbox]:hover{
@@ -148,7 +145,7 @@ input[type=checkbox]:checked{
 
 input[type=checkbox]:checked:after{
 	font-size: 0.7rem;
-	transition: 0.1s;
+	transition: 0.2s cubic-bezier(.44,.02,.8,1.82);
 }
 
 .button-box{
