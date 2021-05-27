@@ -1,0 +1,88 @@
+/* General */
+
+*{
+	padding: 0;
+	margin: 0;
+}
+
+html{
+	font-size: 16px;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body{
+	display: flex;
+	justify-content: center;
+
+	background-color: rgb(228, 228, 228);
+}
+
+
+
+/* Typograhpy */
+header{
+	text-align: center;
+	font-size: 2rem;
+	color: white;
+}
+
+
+
+
+/* Layout */
+
+.container{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 70%;
+}
+
+.menu-box{
+	width: 100%;
+	margin-top: 1em;
+	border-radius: 1rem;
+
+	background-color: white;
+	box-shadow: 0.2em 0.2em 0.3em rgba(0, 0, 0, 0.1);
+}
+
+header{
+	padding: 1.5rem;
+	border-radius: 1rem 1rem 0 0;
+
+	background-color: rgb(85, 85, 85);
+}
+
+.form-box{	
+	padding: 2em;
+	border-radius: 0 0 1rem 1rem;
+}
+
+.todo-list-boxes{
+	width: 100%;
+	margin-top: 1em;
+	padding: 2em;
+}
+
+.todo-box{
+	padding: 2em;
+	margin-top: 1em;
+	box-shadow: 0.2em 0.2em 0.3em rgba(0, 0, 0, 0.1);
+
+	background-color: white;
+}
+
+.todo-box:first-child{
+	border-radius: 1rem 1rem 0 0;
+}
+
+.todo-box:last-child{
+	border-radius: 0 0 1rem 1rem;
+}
+
+@media (orientation: portrait) {
+	.container{
+		width: 95%;
+	}
+}
