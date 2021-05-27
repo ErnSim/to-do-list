@@ -138,7 +138,6 @@ input[type=checkbox]:hover{
 }
 
 input[type=checkbox]:checked{
-	background-color:;
 	background-size: 80%;
 	border-color: rgba(0, 0, 0, 0.9);
 }
@@ -198,6 +197,11 @@ input[type=checkbox]:checked:after{
 
 .task-box:last-child{
 	border-radius: 0 0 1rem 1rem;
+}
+
+.remove-task-button{
+	background-color:black;
+	color: white;
 }
 
 @media (orientation: portrait) {

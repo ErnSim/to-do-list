@@ -13,7 +13,7 @@ function addTodo() {
 	let content = textInput.value;
 
 	if (content != "") {
-		listOfTodos.innerHTML += "<div id='index-"+todoIndex+"' class='task-box'>"+content+"</div>"		// poprawić innerHTML
+		listOfTodos.innerHTML += "<div id='index-" + todoIndex + "' class='task-box'> <input type='checkbox' id=''> <p>" + content + "</p> <div class='remove-task-button' onclick='removeTask(" + todoIndex + ")'>remove task</div> </div>"
 		todoIndex++;
 		console.log(content);
 	}
@@ -23,6 +23,7 @@ function clearList() {
 	listOfTodos.innerHTML = ' ';
 }
 
-function removeTodo(index) {
-	document.getElementById()	
+function removeTask(index) {
+	console.log('index-' + index);
+	document.getElementById('index-' + index).remove();
 }
