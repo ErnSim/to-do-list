@@ -89,10 +89,6 @@ header{
 	background: linear-gradient(45deg, rgba(158,238,255,1) 0%, rgba(240,255,113,1) 74%, rgba(255,138,226,1) 100%); 
 }
 
-.form-box{
-	/**/
-}
-
 form{	
 	display: flex;
 	justify-content: space-around;
@@ -137,7 +133,8 @@ input[type=text]:focus{
 	padding: 2rem;
 }
 
-.todo-box{
+.task-box{
+	display: flex;
 	padding: 2em;
 	margin-top: 1em;
 	box-shadow: 0.2em 0.2em 0.3em rgba(0, 0, 0, 0.1);
@@ -145,11 +142,20 @@ input[type=text]:focus{
 	background-color: white;
 }
 
-.todo-box:first-child{
+.task-box p{
+	margin-left: 2rem;
+	margin-right: 2rem;
+}
+
+.task-box:first-child:last-child{
+	border-radius: 1rem;
+}
+
+.task-box:first-child{
 	border-radius: 1rem 1rem 0 0;
 }
 
-.todo-box:last-child{
+.task-box:last-child{
 	border-radius: 0 0 1rem 1rem;
 }
 

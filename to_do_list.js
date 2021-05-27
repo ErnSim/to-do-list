@@ -7,12 +7,22 @@ let todoIndex = 0;
 submitButton.addEventListener('click', addTodo);
 clearListButton.addEventListener('click', clearList);
 
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
 function addTodo() {
 	let content = textInput.value;
-	listOfTodos.innerHTML += '<div class="todo-box">' + content + '</div>'
-	console.log(content);
+
+	if (content != "") {
+		listOfTodos.innerHTML += "<div id='index-"+todoIndex+"' class='task-box'>"+content+"</div>"		// poprawić innerHTML
+		todoIndex++;
+		console.log(content);
+	}
 }
 
 function clearList() {
 	listOfTodos.innerHTML = ' ';
+}
+
+function removeTodo(index) {
+	document.getElementById()	
 }
