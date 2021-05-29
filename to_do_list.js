@@ -35,17 +35,17 @@ function loadTheTasks(){
 
 		if (task[i]["isCheck"]) {
 			listOfTodos.innerHTML += `	<div id="index-${ i }" class="task-box">
-										<input type="checkbox" id="checkbox-${ i }" checked>
-										<p> ${ task[i]["content"] } </p>
-										<div class="remove-task-button no-select" onclick="removeTask(${ i })">remove task</div>
-									</div>`;
+											<input type="checkbox" id="checkbox-${ i }" checked>
+											<p> ${ task[i]["content"] } </p>
+											<div class="remove-task-button no-select" onclick="removeTask(${ i })">remove task</div>
+										</div>`;
 		}
 		else {
 			listOfTodos.innerHTML += `	<div id="index-${ i }" class="task-box">
-										<input type="checkbox" id="checkbox-${ i }">
-										<p> ${ task[i]["content"] } </p>
-										<div class="remove-task-button no-select" onclick="removeTask(${ i })">remove task</div>
-									</div>`;
+											<input type="checkbox" id="checkbox-${ i }">
+											<p> ${ task[i]["content"] } </p>
+											<div class="remove-task-button no-select" onclick="removeTask(${ i })">remove task</div>
+										</div>`;
 		}
 
 	}
