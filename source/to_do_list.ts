@@ -38,9 +38,9 @@ let taskIndex = Task[Task.length - 1].id;
 loadTheTasks();
 submitButton.addEventListener('click', addTask);
 clearListButton.addEventListener('click', clearList);
-setInterval(changeContentOnOrientation,100);
-// changeCheckboxCheck();		// do zrobienia
-// removeTaskFromArray();		// do zrobienia
+setInterval(changeContentOnOrientation,100);		// zamienić na document.querySelectorAll('.remove-task-button')
+// changeCheckboxCheck();							// do zrobienia
+// removeTaskFromArray();							// do zrobienia, już jest funkcja removeTask()
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -104,7 +104,7 @@ function removeTask(index:number) {		// onclick="removeTask(i)"
 function changeContentOnOrientation() {
 	if (window.matchMedia("(orientation: portrait)").matches) {
 		// mobile mode
-		let numberOfTasks = Object.keys(document.getElementsByClassName('remove-task-button')).length
+		let numberOfTasks = Object.keys(document.getElementsByClassName('remove-task-button')).length			// document.querySelectorAll('.remove-task-button')
 
 		for (let i = 0; i < numberOfTasks; i++) {
 			document.getElementsByClassName('remove-task-button')[i].innerHTML = "🗑️";
