@@ -16,10 +16,10 @@ let Task = {		// może spróbować to jako tablicę, by móc odczytać ostatni i
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // Declare variables
-let textInput = document.querySelector('#text-input');
-let submitButton = document.querySelector('#submit-button');
-let clearListButton = document.querySelector('#clear-list-button')
-let listOfTodos = document.querySelector('#list-of-todos')
+let textInput = document.querySelector('#text-input')!;
+let submitButton = document.querySelector('#submit-button')!;
+let clearListButton = document.querySelector('#clear-list-button')!;
+let listOfTodos = document.querySelector('#list-of-todos')!;
 let taskIndex = Object.keys(Task).length;					// znaleść inny sposób na znalezienie ostatniego indexu
 
 // Execute functions
