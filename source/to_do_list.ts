@@ -11,9 +11,19 @@ let Task = [
 		"content": "Abba ojcze"
 	},
 	{
+		"id": 2,
+		"isCheck": false,
+		"content": "siema"
+	},
+	{
 		"id": 5,
 		"isCheck": true,
 		"content": "papiesz wapiesz"
+	},
+	{
+		"id": 7,
+		"isCheck": true,
+		"content": "boli mnie coś"
 	}
 ]
 
@@ -22,7 +32,7 @@ let textInput = document.querySelector('#text-input')!;
 let submitButton = document.querySelector('#submit-button')!;
 let clearListButton = document.querySelector('#clear-list-button')!;
 let listOfTodos = document.querySelector('#list-of-todos')!;
-let taskIndex = Task[(Object.keys(Task).length) - 1].id;
+let taskIndex = Task[Task.length - 1].id;
 
 // Execute functions
 loadTheTasks();
@@ -41,7 +51,7 @@ function loadTheTasks(){
 				<div id="index-${ Task[i].id }" class="task-box">
 					<input type="checkbox" id="checkbox-${ i }" checked>
 					<p> ${ Task[i].content } </p>
-					<div class="remove-task-button no-select" onclick="removeTask(${ i })">🗑️ remove task</div>
+					<div class="remove-task-button no-select" onclick="removeTask(${ Task[i].id })">🗑️ remove task</div>
 				</div>`;
 		}
 		else {
@@ -49,7 +59,7 @@ function loadTheTasks(){
 			<div id="index-${ Task[i].id }" class="task-box">
 				<input type="checkbox" id="checkbox-${ i }">
 				<p> ${ Task[i].content } </p>
-				<div class="remove-task-button no-select" onclick="removeTask(${ i })">🗑️ remove task</div>
+				<div class="remove-task-button no-select" onclick="removeTask(${ Task[i].id })">🗑️ remove task</div>
 			</div>`;
 		}
 	}
@@ -78,9 +88,11 @@ function addTodo() {
 
 function clearList() {
 	listOfTodos.innerHTML = ' ';
+	Task = [];
+	return taskIndex = 0;
 }
 
-function removeTask(index:number) {
+function removeTask(index:number) {		// onclick="removeTask(i)"
 	console.log('index-' + index);
 	document.getElementById('index-' + index)!.remove();
 }
