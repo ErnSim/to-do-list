@@ -32,8 +32,9 @@ let clearListButton = document.querySelector('#clear-list-button');
 let listOfTodos = document.querySelector('#list-of-todos');
 let taskIndex = Task[Task.length - 1].id;
 loadTheTasks();
-submitButton.addEventListener('click', addTodo);
+submitButton.addEventListener('click', addTask);
 clearListButton.addEventListener('click', clearList);
+setInterval(changeContentOnOrientation, 100);
 function loadTheTasks() {
     for (let i = 0; i < Object.keys(Task).length; i++) {
         if (Task[i]["isCheck"]) {
@@ -53,8 +54,9 @@ function loadTheTasks() {
 			</div>`;
         }
     }
+    console.log('loadTheTask() | Wczytano pomyślnie');
 }
-function addTodo() {
+function addTask() {
     let content = textInput.value;
     if (content != "") {
         taskIndex++;
@@ -70,13 +72,33 @@ function addTodo() {
             "content": content
         });
     }
+    console.log(`addTask() | Dodano zadanie o indexie: ${taskIndex}`);
 }
 function clearList() {
     listOfTodos.innerHTML = ' ';
     Task = [];
+    console.log(`clearList() | Wyczyszczono listę zadań`);
     return taskIndex = 0;
 }
 function removeTask(index) {
-    console.log('index-' + index);
     document.getElementById('index-' + index).remove();
+    console.log(`removeTask(${index}) | Usunięto zadanie o indexie: ${index}`);
+}
+function changeContentOnOrientation() {
+    if (window.matchMedia("(orientation: portrait)").matches) {
+        let numberOfTasks = Object.keys(document.getElementsByClassName('remove-task-button')).length;
+        for (let i = 0; i < numberOfTasks; i++) {
+            document.getElementsByClassName('remove-task-button')[i].innerHTML = "🗑️";
+            document.getElementsByClassName("remove-task-button")[i].style.width = "2rem";
+        }
+        console.log(`changeContentOnOrientation() | Zmieniono na mobilną wersję`);
+    }
+    else {
+        let numberOfTasks = Object.keys(document.getElementsByClassName('remove-task-button')).length;
+        for (let i = 0; i < numberOfTasks; i++) {
+            document.getElementsByClassName('remove-task-button')[i].innerHTML = "🗑️ remove task";
+            document.getElementsByClassName("remove-task-button")[i].style.width = "11rem";
+        }
+        console.log(`changeContentOnOrientation() | Zmieniono na desktopową wersję`);
+    }
 }
