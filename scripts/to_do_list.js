@@ -1,5 +1,6 @@
 "use strict";
-let Task = [
+let Task = [];
+Task = [
     {
         "id": 0,
         "isCheck": true,
@@ -30,7 +31,13 @@ let textInput = document.querySelector('#text-input');
 let submitButton = document.querySelector('#submit-button');
 let clearListButton = document.querySelector('#clear-list-button');
 let listOfTodos = document.querySelector('#list-of-todos');
-let taskIndex = Task[Task.length - 1].id;
+let taskIndex;
+if (Task.length === undefined) {
+    taskIndex = 0;
+}
+else {
+    taskIndex = Task[Task.length - 1].id;
+}
 loadTheTasks();
 submitButton.addEventListener('click', addTask);
 clearListButton.addEventListener('click', clearList);

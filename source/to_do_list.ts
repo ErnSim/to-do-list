@@ -1,5 +1,12 @@
 // Inital tasks (localStorage in the future)
-let Task = [
+//let Task:{ id:number, isCheck:boolean, content:string}[] = [];
+let Task:{
+	id:number, 
+	isCheck:boolean, 
+	content:string}[] = [];
+
+
+Task = [
 	{
 		"id": 0,
 		"isCheck": true,
@@ -27,12 +34,19 @@ let Task = [
 	}
 ]
 
+
 // Declare variables
 let textInput = document.querySelector('#text-input')!;
 let submitButton = document.querySelector('#submit-button')!;
 let clearListButton = document.querySelector('#clear-list-button')!;
 let listOfTodos = document.querySelector('#list-of-todos')!;
-let taskIndex = Task[Task.length - 1].id;
+let taskIndex:number;
+if (Task.length === undefined) {
+	taskIndex = 0;
+}
+else{
+	taskIndex = Task[Task.length - 1].id;
+}
 
 // Execute functions
 loadTheTasks();
