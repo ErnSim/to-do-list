@@ -39,7 +39,7 @@ loadTheTasks();
 submitButton.addEventListener('click', addTask);
 clearListButton.addEventListener('click', clearList);
 setInterval(changeContentOnOrientation,100);		// zamienić na document.querySelectorAll('.remove-task-button')
-// changeCheckboxCheck();							// do zrobienia
+//lineThroughTask();
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -49,7 +49,7 @@ function loadTheTasks(){
 		if (Task[i]["isCheck"]) {
 			listOfTodos.innerHTML += `
 				<div id="index-${ Task[i].id }" class="task-box">
-					<input type="checkbox" id="checkbox-${ i }" checked>
+					<input type="checkbox" id="checkbox-${ Task[i].id }" onclick="lineThroughTask(${ Task[i].id })" checked>
 					<p> ${ Task[i].content } </p>
 					<div class="remove-task-button no-select" onclick="removeTask(${ Task[i].id })">🗑️ remove task</div>
 				</div>`;
@@ -57,11 +57,13 @@ function loadTheTasks(){
 		else {
 			listOfTodos.innerHTML += `	
 			<div id="index-${ Task[i].id }" class="task-box">
-				<input type="checkbox" id="checkbox-${ i }">
+				<input type="checkbox" id="checkbox-${ Task[i].id }" onclick="lineThroughTask(${ Task[i].id })">
 				<p> ${ Task[i].content } </p>
 				<div class="remove-task-button no-select" onclick="removeTask(${ Task[i].id })">🗑️ remove task</div>
 			</div>`;
 		}
+
+		lineThroughTask(Task[i].id);
 	}
 	console.log('loadTheTask() | Wczytano pomyślnie');
 }
@@ -101,7 +103,7 @@ function removeTask(index:number) {		// onclick="removeTask(i)"
 	removeTaskFromArray(index);
 }
 
-function removeTaskFromArray(index:number){
+function removeTaskFromArray(index:number){			// poprawić nie działa do końca poprawnie
 	let TmpArray = [];
 	let tmpValue:any;
 
@@ -136,5 +138,16 @@ function changeContentOnOrientation() {
 			document.getElementsByClassName("remove-task-button")[i].style.width = "11rem";
 		}
 		console.log(`changeContentOnOrientation() | Zmieniono na desktopową wersję`);
+	}
+}
+
+function lineThroughTask(index:number){
+	if (document.querySelector(`#checkbox-${ index }`)!.checked) {
+		document.querySelector(`#index-${ index } p`)!.style.textDecoration = "line-through";
+		document.querySelector(`#index-${ index } p`)!.style.color = "rgba(0, 0, 0, 0.2)";
+	}
+	else{
+		document.querySelector(`#index-${ index } p`)!.style.textDecoration = "none";
+		document.querySelector(`#index-${ index } p`)!.style.color = "black";
 	}
 }

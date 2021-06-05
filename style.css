@@ -212,6 +212,11 @@ input[type=checkbox]:checked:after{
 	width: 75%;
 	margin-left: 2rem;
 	margin-right: 2rem;
+
+	/* jeśli będzie checkbox = true
+	text-decoration: line-through;
+	color:rgba(0, 0, 0, 0.2);
+	*/
 }
 
 .task-box:first-child:last-child{
