@@ -40,7 +40,6 @@ submitButton.addEventListener('click', addTask);
 clearListButton.addEventListener('click', clearList);
 setInterval(changeContentOnOrientation,100);		// zamienić na document.querySelectorAll('.remove-task-button')
 // changeCheckboxCheck();							// do zrobienia
-// removeTaskFromArray();							// do zrobienia, już jest funkcja removeTask()
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -99,6 +98,22 @@ function clearList() {
 function removeTask(index:number) {		// onclick="removeTask(i)"
 	document.getElementById('index-' + index)!.remove();
 	console.log(`removeTask(${ index }) | Usunięto zadanie o indexie: ${ index }`);
+	removeTaskFromArray(index);
+}
+
+function removeTaskFromArray(index:number){
+	let TmpArray = [];
+	let tmpValue:any;
+
+	for (let i = 0; i <= index; i++) {
+		tmpValue = Task.shift();
+		TmpArray.push(tmpValue);
+	}
+	TmpArray.pop();
+	for (let i = 0; i <= index - 1; i++) {
+		tmpValue = TmpArray.pop();
+		Task.unshift(tmpValue);
+	}
 }
 
 function changeContentOnOrientation() {

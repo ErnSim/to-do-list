@@ -83,6 +83,20 @@ function clearList() {
 function removeTask(index) {
     document.getElementById('index-' + index).remove();
     console.log(`removeTask(${index}) | Usunięto zadanie o indexie: ${index}`);
+    removeTaskFromArray(index);
+}
+function removeTaskFromArray(index) {
+    let TmpArray = [];
+    let tmpValue;
+    for (let i = 0; i <= index; i++) {
+        tmpValue = Task.shift();
+        TmpArray.push(tmpValue);
+    }
+    TmpArray.pop();
+    for (let i = 0; i <= index - 1; i++) {
+        tmpValue = TmpArray.pop();
+        Task.unshift(tmpValue);
+    }
 }
 function changeContentOnOrientation() {
     if (window.matchMedia("(orientation: portrait)").matches) {
