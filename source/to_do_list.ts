@@ -9,6 +9,9 @@ let infoSortBox = document.querySelector('.info-sort-box');
 
 loadTaskList();
 submitButton.addEventListener('click', addTask);
+document.addEventListener('keydown', e => {
+	if (e.key == 'Enter') addTask();
+});
 clearListButton.addEventListener('click', clearTaskList);
 setInterval(changeContentOnOrientation, 50);
 //document.querySelector('#sortSelect').addEventListener('change', sortTaskList);
