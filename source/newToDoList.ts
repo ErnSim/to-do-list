@@ -12,11 +12,10 @@ clearListButton.addEventListener('click', clearTaskList);
 
 let taskIndex = 0;	// czy to jest potrzebne?
 
-
-
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 function loadTaskList(){
+	listOfTasks.innerHTML = ' ';
 	if (localStorage.getItem('TaskList') !== null) {
 		TaskList = JSON.parse(localStorage.getItem('TaskList'));
 
@@ -52,15 +51,14 @@ function addTask(){
 			"isCheck": false
 		})
 		localStorage.setItem('TaskList', JSON.stringify(TaskList));
-		let i = TaskList.length - 1;
-
-		listOfTasks.innerHTML += `
-			<div id="TaskIndex-${ i }" class="task-box">
-				<input type="checkbox" id="checkbox-${ i }" onclick="changeCheckOnCheckbox(${ i })">
-				<p> ${ textInput.value } </p>
-				<div class="remove-task-button no-select" onclick="removeTask(${ i })">🗑️ remove task</div>
-			</div>`
+		loadTaskList();
 	}
+}
+
+function removeTask(indexOfTask:number) {
+	TaskList.splice(indexOfTask,1);
+	localStorage.setItem('TaskList', JSON.stringify(TaskList));
+	loadTaskList();
 }
 
 function clearTaskList(){
