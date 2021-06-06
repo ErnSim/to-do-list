@@ -4,6 +4,8 @@ let submitButton = document.querySelector('#submit-button');
 let clearListButton = document.querySelector('#clear-list-button');
 let textInput = document.querySelector('#text-input');
 let listOfTasks = document.querySelector('#list-of-todos');
+let remainingTasks = document.querySelector('.remaining-tasks');
+let infoSortBox = document.querySelector('.info-sort-box');
 loadTaskList();
 submitButton.addEventListener('click', addTask);
 clearListButton.addEventListener('click', clearTaskList);
@@ -36,6 +38,7 @@ function loadTaskList() {
             }
         }
     }
+    loadInfo();
 }
 function addTask() {
     if (textInput.value !== '') {
@@ -56,6 +59,7 @@ function clearTaskList() {
     listOfTasks.innerHTML = ' ';
     TaskList = [];
     localStorage.setItem('TaskList', JSON.stringify(TaskList));
+    loadInfo();
 }
 function changeCheckOnCheckbox(indexOfCheckbox) {
     var _a;
@@ -83,5 +87,18 @@ function changeContentOnOrientation() {
             document.querySelectorAll('.remove-task-button')[i].innerHTML = "🗑️ remove task";
             document.querySelectorAll('.remove-task-button')[i].style.width = "11rem";
         }
+    }
+}
+function loadInfo() {
+    let i = TaskList.length;
+    if (i !== 0) {
+        infoSortBox === null || infoSortBox === void 0 ? void 0 : infoSortBox.style.display = `flex`;
+        infoSortBox === null || infoSortBox === void 0 ? void 0 : infoSortBox.innerHTML = `
+			<div class="remaining-tasks">remaining tasks: ${i}</div>
+			<div class="sort">here will be list to sort</div>
+		`;
+    }
+    else {
+        infoSortBox === null || infoSortBox === void 0 ? void 0 : infoSortBox.style.display = `none`;
     }
 }
