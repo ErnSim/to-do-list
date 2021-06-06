@@ -7,6 +7,7 @@ let listOfTasks = document.querySelector('#list-of-todos');
 loadTaskList();
 submitButton.addEventListener('click', addTask);
 clearListButton.addEventListener('click', clearTaskList);
+setInterval(changeContentOnOrientation, 50);
 let taskIndex = 0;
 function loadTaskList() {
     listOfTasks.innerHTML = ' ';
@@ -69,4 +70,18 @@ function changeCheckOnCheckbox(indexOfCheckbox) {
         TaskList[indexOfCheckbox].isCheck = false;
     }
     localStorage.setItem('TaskList', JSON.stringify(TaskList));
+}
+function changeContentOnOrientation() {
+    if (window.matchMedia("(orientation: portrait)").matches) {
+        for (let i = 0; i < TaskList.length; i++) {
+            document.querySelectorAll('.remove-task-button')[i].innerHTML = "🗑️";
+            document.querySelectorAll('.remove-task-button')[i].style.width = "2rem";
+        }
+    }
+    else {
+        for (let i = 0; i < TaskList.length; i++) {
+            document.querySelectorAll('.remove-task-button')[i].innerHTML = "🗑️ remove task";
+            document.querySelectorAll('.remove-task-button')[i].style.width = "11rem";
+        }
+    }
 }
