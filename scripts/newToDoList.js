@@ -10,7 +10,6 @@ loadTaskList();
 submitButton.addEventListener('click', addTask);
 clearListButton.addEventListener('click', clearTaskList);
 setInterval(changeContentOnOrientation, 50);
-let taskIndex = 0;
 function loadTaskList() {
     listOfTasks.innerHTML = ' ';
     if (localStorage.getItem('TaskList') !== null) {
@@ -95,7 +94,15 @@ function loadInfo() {
         infoSortBox === null || infoSortBox === void 0 ? void 0 : infoSortBox.style.display = `flex`;
         infoSortBox === null || infoSortBox === void 0 ? void 0 : infoSortBox.innerHTML = `
 			<div class="remaining-tasks">remaining tasks: ${i}</div>
-			<div class="sort">here will be list to sort</div>
+			<!--
+			<div class="sort">
+				<select name="mode" id="sortSelect">
+					<option value="">All</option>
+					<option value="">Completed</option>
+					<option value="">Uncompleted</option>
+				</select>
+			</div>
+			-->
 		`;
     }
     else {
