@@ -1,102 +1,111 @@
 "use strict";
-let Task = [];
-let textInput = document.querySelector('#text-input');
+let TaskList = [];
 let submitButton = document.querySelector('#submit-button');
 let clearListButton = document.querySelector('#clear-list-button');
-let listOfTodos = document.querySelector('#list-of-todos');
-let taskIndex;
-if (Task.length === 0) {
-    taskIndex = 0;
-}
-else {
-    taskIndex = Task[Task.length - 1].id;
-}
-Task = JSON.parse(localStorage.getItem("TaskStorage"));
-loadTheTasks();
+let textInput = document.querySelector('#text-input');
+let listOfTasks = document.querySelector('#list-of-todos');
+let remainingTasks = document.querySelector('.remaining-tasks');
+let infoSortBox = document.querySelector('.info-sort-box');
+loadTaskList();
 submitButton.addEventListener('click', addTask);
-clearListButton.addEventListener('click', clearList);
-setInterval(changeContentOnOrientation, 100);
-function loadTheTasks() {
-    if (Task !== null) {
-        for (let i = 0; i < Task.length; i++) {
-            if (Task[i]["isCheck"]) {
-                listOfTodos.innerHTML += `
-					<div id="index-${Task[i].id}" class="task-box">
-						<input type="checkbox" id="checkbox-${Task[i].id}" onclick="changeCheckboxValue(${Task[i].id})" checked>
-						<p> ${Task[i].content} </p>
-						<div class="remove-task-button no-select" onclick="removeTask(${Task[i].id})">🗑️ remove task</div>
-					</div>`;
+clearListButton.addEventListener('click', clearTaskList);
+setInterval(changeContentOnOrientation, 50);
+function loadTaskList() {
+    listOfTasks.innerHTML = ' ';
+    if (localStorage.getItem('TaskList') !== null) {
+        TaskList = JSON.parse(localStorage.getItem('TaskList'));
+        for (let i = 0; i < TaskList.length; i++) {
+            if (TaskList[i].isCheck) {
+                listOfTasks.innerHTML += `
+				<div id="TaskIndex-${i}" class="task-box">
+					<input type="checkbox" id="checkbox-${i}" onclick="changeCheckOnCheckbox(${i})" checked>
+					<p> ${TaskList[i].content} </p>
+					<div class="remove-task-button no-select" onclick="removeTask(${i})">🗑️ remove task</div>
+				</div>`;
+                document.querySelector(`#TaskIndex-${i} p`).style.textDecoration = "line-through";
+                document.querySelector(`#TaskIndex-${i} p`).style.color = "rgba(0, 0, 0, 0.2)";
             }
             else {
-                listOfTodos.innerHTML += `	
-				<div id="index-${Task[i].id}" class="task-box">
-					<input type="checkbox" id="checkbox-${Task[i].id}" onclick="changeCheckboxValue(${Task[i].id})">
-					<p> ${Task[i].content} </p>
-					<div class="remove-task-button no-select" onclick="removeTask(${Task[i].id})">🗑️ remove task</div>
+                listOfTasks.innerHTML += `
+				<div id="TaskIndex-${i}" class="task-box">
+					<input type="checkbox" id="checkbox-${i}" onclick="changeCheckOnCheckbox(${i})">
+					<p> ${TaskList[i].content} </p>
+					<div class="remove-task-button no-select" onclick="removeTask(${i})">🗑️ remove task</div>
 				</div>`;
+                document.querySelector(`#TaskIndex-${i} p`).style.textDecoration = "none";
+                document.querySelector(`#TaskIndex-${i} p`).style.color = "black";
             }
-            changeCheckboxValue(Task[i].id);
         }
-        console.log('loadTheTask() | Wczytano pomyślnie');
     }
+    loadInfo();
 }
 function addTask() {
-    let content = textInput.value;
-    if (content != "") {
-        taskIndex++;
-        listOfTodos.innerHTML += `	
-			<div id="index-${taskIndex}" class="task-box">
-				<input type="checkbox" id="checkbox-${taskIndex}">
-				<p> ${content} </p>
-				<div class="remove-task-button no-select" onclick="removeTask(${taskIndex})">🗑️ remove task</div>
-			</div>`;
-        Task.push({
-            "id": taskIndex,
-            "isCheck": false,
-            "content": content
+    if (textInput.value !== '') {
+        TaskList.push({
+            "content": textInput.value,
+            "isCheck": false
         });
-        localStorage.setItem("TaskStorage", JSON.stringify(Task));
+        localStorage.setItem('TaskList', JSON.stringify(TaskList));
+        loadTaskList();
     }
-    console.log(`addTask() | Dodano zadanie o indexie: ${taskIndex}`);
 }
-function clearList() {
-    listOfTodos.innerHTML = ' ';
-    Task = [];
-    localStorage.removeItem('TaskStorage');
-    console.log(`clearList() | Wyczyszczono listę zadań`);
-    return taskIndex = 0;
+function removeTask(indexOfTask) {
+    TaskList.splice(indexOfTask, 1);
+    localStorage.setItem('TaskList', JSON.stringify(TaskList));
+    loadTaskList();
 }
-function removeTask(index) {
-    document.getElementById('index-' + index).remove();
-    console.log(`removeTask(${index}) | Usunięto zadanie o indexie: ${index}`);
-    Task.splice(index, 1);
-    localStorage.setItem("TaskStorage", JSON.stringify(Task));
+function clearTaskList() {
+    listOfTasks.innerHTML = ' ';
+    TaskList = [];
+    localStorage.setItem('TaskList', JSON.stringify(TaskList));
+    loadInfo();
+}
+function changeCheckOnCheckbox(indexOfCheckbox) {
+    var _a;
+    if ((_a = document.querySelector(`#checkbox-${indexOfCheckbox}`)) === null || _a === void 0 ? void 0 : _a.checked) {
+        document.querySelector(`#TaskIndex-${indexOfCheckbox} p`).style.textDecoration = "line-through";
+        document.querySelector(`#TaskIndex-${indexOfCheckbox} p`).style.color = "rgba(0, 0, 0, 0.2)";
+        TaskList[indexOfCheckbox].isCheck = true;
+    }
+    else {
+        document.querySelector(`#TaskIndex-${indexOfCheckbox} p`).style.textDecoration = "none";
+        document.querySelector(`#TaskIndex-${indexOfCheckbox} p`).style.color = "black";
+        TaskList[indexOfCheckbox].isCheck = false;
+    }
+    localStorage.setItem('TaskList', JSON.stringify(TaskList));
 }
 function changeContentOnOrientation() {
     if (window.matchMedia("(orientation: portrait)").matches) {
-        let numberOfTasks = Object.keys(document.getElementsByClassName('remove-task-button')).length;
-        for (let i = 0; i < numberOfTasks; i++) {
-            document.getElementsByClassName('remove-task-button')[i].innerHTML = "🗑️";
-            document.getElementsByClassName("remove-task-button")[i].style.width = "2rem";
+        for (let i = 0; i < TaskList.length; i++) {
+            document.querySelectorAll('.remove-task-button')[i].innerHTML = "🗑️";
+            document.querySelectorAll('.remove-task-button')[i].style.width = "2rem";
         }
     }
     else {
-        let numberOfTasks = Object.keys(document.getElementsByClassName('remove-task-button')).length;
-        for (let i = 0; i < numberOfTasks; i++) {
-            document.getElementsByClassName('remove-task-button')[i].innerHTML = "🗑️ remove task";
-            document.getElementsByClassName("remove-task-button")[i].style.width = "11rem";
+        for (let i = 0; i < TaskList.length; i++) {
+            document.querySelectorAll('.remove-task-button')[i].innerHTML = "🗑️ remove task";
+            document.querySelectorAll('.remove-task-button')[i].style.width = "11rem";
         }
     }
 }
-function changeCheckboxValue(index) {
-    if (document.querySelector(`#checkbox-${index}`).checked) {
-        document.querySelector(`#index-${index} p`).style.textDecoration = "line-through";
-        document.querySelector(`#index-${index} p`).style.color = "rgba(0, 0, 0, 0.2)";
-        localStorage.setItem("TaskStorage", JSON.stringify(Task));
+function loadInfo() {
+    let i = TaskList.length;
+    if (i !== 0) {
+        infoSortBox === null || infoSortBox === void 0 ? void 0 : infoSortBox.style.display = `flex`;
+        infoSortBox === null || infoSortBox === void 0 ? void 0 : infoSortBox.innerHTML = `
+			<div class="remaining-tasks">remaining tasks: ${i}</div>
+			<!--
+			<div class="sort">
+				<select name="mode" id="sortSelect">
+					<option value="">All</option>
+					<option value="">Completed</option>
+					<option value="">Uncompleted</option>
+				</select>
+			</div>
+			-->
+		`;
     }
     else {
-        document.querySelector(`#index-${index} p`).style.textDecoration = "none";
-        document.querySelector(`#index-${index} p`).style.color = "black";
-        localStorage.setItem("TaskStorage", JSON.stringify(Task));
+        infoSortBox === null || infoSortBox === void 0 ? void 0 : infoSortBox.style.display = `none`;
     }
 }
